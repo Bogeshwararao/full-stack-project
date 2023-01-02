@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-let posts={};
+let posts=[];
 
 app.get("/",function(req , res){
      res.render("home", {
@@ -47,7 +47,18 @@ app.post("/compose", function(req, res){
 
   res.redirect("/");
 })
+app.get("/posts/:postname", function(req,res){
+  const requesttitle = req.params.postname;
 
+   posts.forEach(function(post){
+         const storedtitle =post.title;
+     if(storedtitle===requesttitle){
+      console.log("match found! ");
+     }
+
+   });
+
+})
 
 
 
