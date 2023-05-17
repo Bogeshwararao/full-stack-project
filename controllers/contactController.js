@@ -1,11 +1,12 @@
+const asyncHandler= require("express-async-handler");
 // des get all contacts
 //route get /api/contacts
 //acces public 
-const getContacts = (req,res)=>{
+const getContacts =asyncHandler(async(req,res)=>{
     res.status(200).json({message:"get all contacts"});
-}
+});
 
-const createContact = (req,res)=>{
+const createContact =asyncHandler(async(req,res)=>{
     console.log("The request body is",req.body);
     const {name,email,phone}= req.body;
     if (!name || !email || !phone ){
@@ -13,19 +14,18 @@ const createContact = (req,res)=>{
         throw new Error("all fields are mandataory")
     }
     res.status(201).json({message:"create contacts"});
-}
+})
 
-
-const getContact=(req,res)=>{
+const getContact=asyncHandler(async(req,res)=>{
     res.status(200).json({message:`get contact for ${req.params.id}`});
-}
+})
 
-const updateContact=(req,res)=>{
+const updateContact=asyncHandler(async(req,res)=>{
     res.status(200).json({message:`update contact for ${req.params.id}`});
-}
+})
 
-const deleteContact=(req,res)=>{
+const deleteContact=asyncHandler(async(req,res)=>{
     res.status(200).json({message:`delete contact for ${req.params.id}`});
-}
+})
 
 module.exports ={getContacts , createContact,getContact,updateContact,deleteContact};
