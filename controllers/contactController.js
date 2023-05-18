@@ -1,9 +1,12 @@
 const asyncHandler= require("express-async-handler");
+const Contact= require("../models/contactModel");
+// const contactModel = require("../models/contactModel");
 // des get all contacts
 //route get /api/contacts
 //acces public 
 const getContacts =asyncHandler(async(req,res)=>{
-    res.status(200).json({message:"get all contacts"});
+    const contacts =await contact.find();
+    res.status(200).json(contacts);
 });
 
 const createContact =asyncHandler(async(req,res)=>{
@@ -13,8 +16,13 @@ const createContact =asyncHandler(async(req,res)=>{
         res.status(400);
         throw new Error("all fields are mandataory")
     }
-    res.status(201).json({message:"create contacts"});
-})
+    const contact = await Contact.create({
+        name,
+        email,
+        phone,
+    });
+    res.status(201).json(contact);
+});
 
 const getContact=asyncHandler(async(req,res)=>{
     res.status(200).json({message:`get contact for ${req.params.id}`});
